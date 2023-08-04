@@ -63,6 +63,9 @@
 #define WCNSS_CONFIG_UNSPECIFIED (-1)
 #define UINT32_MAX (0xFFFFFFFFU)
 
+int wcnss_get_mux_control(void);
+void wcnss_log_iris_regs(void);
+
 #define SUBSYS_NOTIF_MIN_INDEX	0
 #define SUBSYS_NOTIF_MAX_INDEX	9
 #define PROC_AWAKE_ID 12 /* 12th bit */
