@@ -5,6 +5,50 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
+#include <asm-generic/asm-offsets.h>
+
+static int aarch64_insn_decode_register(int regtype, unsigned long addr)
+{
+    unsigned int insn;
+
+    insn = read_cpu_memory(addr, sizeof(insn));
+
+    switch (regtype) {
+    case AARCH64_INSN_REGTYPE_RD:
+        return insn >> 12 & 0x1f;
+    case AARCH64_INSN_REGTYPE_RS1:
+        return insn >> 16 & 0x1f;
+    case AARCH64_INSN_REGTYPE_RS2:
+        return insn >> 20 & 0x1f;
+    default:
+        return -1;
+    }
+}
+
+static struct aarch64_insn aarch64_insn_gen_movewide(int rd, u16 val, int variant, int size)
+{
+    struct aarch64_insn insn;
+
+    insn.bits.opcode = AARCH64_INSN_OP_MOVWIDE;
+    insn.bits.rd = rd;
+    insn.bits.variant = variant;
+    insn.bits.size = size;
+    insn.bits.imm = val;
+
+    return insn;
+}
+
+static struct aarch64_insn aarch64_insn_gen_branch_imm(u64 addr, u64 imm, int link)
+{
+    struct aarch64_insn insn;
+
+    insn.bits.opcode = AARCH64_INSN_OP_BRANCH;
+    insn.bits.imm = imm;
+    insn.bits.addr = addr;
+    insn.bits.link = link;
+
+    return insn;
+}
 
 #include <linux/elf.h>
 #include <linux/kernel.h>
