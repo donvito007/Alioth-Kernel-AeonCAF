@@ -7,7 +7,7 @@
  */
 #include <asm-generic/asm-offsets.h>
 #include <asm/insn.h>
-#include <include/linux/stdint.h>
+#include <stdint.h>
 extern int read_cpu_memory(void *addr, size_t size);
 static int aarch64_insn_decode_register(int regtype, unsigned long addr)
 {
