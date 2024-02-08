@@ -6,7 +6,7 @@
  * published by the Free Software Foundation.
  */
 #include <asm-generic/asm-offsets.h>
-#include <arch/arm64/include/asm/insn.h>
+#include <asm/insn.h>
 #include <arch/powerpc/boot/stdint.h>
 extern int read_cpu_memory(void *addr, size_t size);
 static int aarch64_insn_decode_register(int regtype, unsigned long addr)
